@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "name": "agents-communication-through-valkey",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.621.0",
+    "dotenv": "^16.4.5",
+    "iovalkey": "^0.1.0"
+  }
+}
