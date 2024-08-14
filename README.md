@@ -1,21 +1,12 @@
-# Create agents that communicate to each other and have long term memory
+# Integrating Valkey pub/sub with Amazon Bedrock for AI agent
 
-- Communication replies on Valkey pub/sub
+Follow this tutorial that will walk you through setting up a communication system between AI agents using Aiven for Valkey and Amazon Bedrock’s Claude model. The goal is to enable agents to operate independently while staying in sync through a pub/sub service.
 
-## Step 1: Deploy Aiven services with Terraform
+This setup is particularly useful in scenarios like automating customer support, managing IoT devices, or any situation where systems need to communicate in real-time.
 
-### Register with Aiven
-If you don't have Aiven account yet, [register here](https://go.aiven.io/aws-agents-workshop) to get extra credits.
+In this tutorial we'll take an example of two inhabitants of an imaginary planet that meet and start talking.
 
-### Get Aiven token
-In Aiven console Go to **User Information** menu and select **Tokens**:
-![tokens.png](screenshots%2Ftokens.png)
-
-Click on **Generate token**, add a description for the token and press to generate. A popup with a newly generated token will appear. Copy token value.
-
-### Run Terraform script
-In this project we use Terraform to set up Aiven services. If you don't have Terraform installed follow the steps from [the Terraform documentation page](https://developer.hashicorp.com/terraform/install).
-
+### Create Aiven services with a Terraform script
 The terraform files can be found in `./terraform` folder of the current project.
 `./terraform/terraform.tfvars-example` provides an example of *tfvars* file. 
 
@@ -32,34 +23,3 @@ Terraform will initiate creation of resources:
 - Aiven for Valkey
 
 Once deployment is done, Terraform will also create `.env` file with necessary credentials to access the services.
-
-## Step 2: Enable Amazon Bedrock model Claude
-In this project we use LLM Claude available through Amazon Bedrock.
-To invoke the model you need first to enable access:
-
-1. In AWS console select region where Amazon Bedrock and Claude model is available (for example, `us-east-1`).
-2. Go to Amazon Bedrock service page.
-3. Select **Providers** in the menu and then Anthropic, scroll to the **Claude models**.
-![aws-providers.png](screenshots%2Faws-providers.png)
-4. In this project we use **Claude 3 Haiku**, you can also select a different model, but that might require changes in request/response formats.
-5. If you see a message `This account does not currently have access to this model. Request access in Model access.`, go to Model access and enable the model.
-
-### AWS credentials
-This project assumes that AWS_SECRET_ACCESS_KEY and AWS_ACCESS_KEY_ID are accessible through the environment variables. Follow [AWS documentation](https://docs.aws.amazon.com/keyspaces/latest/devguide/access.credentials.html) for more details.
-
-Context: the credentials are used by `@aws-sdk/client-bedrock-runtime` when creating a client, see Bedrock client creation in `./src/common.js` for details.
-
-## Step 3: Install libraries
-This project uses npm and NodeJS, if you don't have them installed, follow instruction at [the NodeJS documentation page](https://nodejs.org/en/learn/getting-started/how-to-install-nodejs)
-Run
-``npm install``
-
-## Step 4: Run locally
-Run
-``node run``
-
-
-
-
-
-
